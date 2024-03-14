@@ -1,3 +1,5 @@
+
+import Header from './components/Header';
 import './globals.css';
 
 export const metadata = {
@@ -13,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full bg-gray-50">
-      <body className="h-full">
+      <body className="h-full bg-gray-300">
+        <Header />
+
         {children}
       </body>
     </html>
