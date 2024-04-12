@@ -1,14 +1,13 @@
+import Header from "@/components/Header";
 import { Button, Card } from "@tremor/react";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Card className="mx-auto max-w-xs">
-        <p className="text-center text-slate-400">Card</p>
-      </Card>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-gray-300">
+      <Header className="bg-white w-full fixed top-0 min-h-24"/>
 
-      <Button className="mt-8">Button</Button>
+      
     </main>
   );
 }
