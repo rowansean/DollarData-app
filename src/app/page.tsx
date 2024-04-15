@@ -28,7 +28,7 @@ export default function Home() {
         <Card className="flex justify-between items-center">
           <div className="card-header place-self-start mr-3">
             <InfoIcon className="w-5 h-5" />
-            <div className="popup">
+          </div>
           <div className="h-fit text-left">
             <p className="font-light text-sm">This Months Change</p>
             <p className="font-medium text-lg">April</p>
