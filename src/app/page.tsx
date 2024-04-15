@@ -3,6 +3,7 @@ import MonthlySavingsProgress from "@/components/MonthlySavingsProgress";
 import NetWorthMonthChange from "@/components/NetWorthMonthChange";
 import { NetWorthOverTime } from "@/components/NetWorthOverTime";
 import { BadgeDelta, Button, Card } from "@tremor/react";
+import { Info, InfoIcon } from "lucide-react";
 
 export default function Home() {
   return (
@@ -25,6 +26,9 @@ export default function Home() {
       </div>
       <div className="dashboard-grid grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card className="flex justify-between items-center">
+          <div className="card-header place-self-start mr-3">
+            <InfoIcon className="w-5 h-5" />
+            <div className="popup">
           <div className="h-fit text-left">
             <p className="font-light text-sm">This Months Change</p>
             <p className="font-medium text-lg">April</p>
