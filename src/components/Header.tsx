@@ -10,18 +10,15 @@ export default function Header({ className }: { className: string }) {
         <TabList className="border-none" variant="line" defaultValue="1">
           <Tab value="1">
             <Link href="/">
-              <LayoutDashboard />
               Dashboard
             </Link>
           </Tab>
           <Tab value="2">
             <Link href="/income">
-              <CircleDollarSign />
               Income
             </Link>
           </Tab>
           <Tab value="3">
-            <ParkingMeter />
             <Link href="/expenses">Expenses</Link>
           </Tab>
         </TabList>
