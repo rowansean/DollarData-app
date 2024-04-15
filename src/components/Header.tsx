@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Header({ className }: { className: string }) {
   return (
-    <div className={`${className} flex shadow-md`}>
+    <div className={`${className} flex shadow-md z-10`}>
       <TabGroup className="s self-end">
         <TabList className="border-none" variant="line" defaultValue="1">
           <Link href="/">
