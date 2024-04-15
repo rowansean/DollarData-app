@@ -5,25 +5,18 @@ import React from "react";
 
 export default function Header({ className }: { className: string }) {
   return (
-    <div className={`${className} flex shadow-md`}>
+    <div className={`${className} flex shadow-md z-10`}>
       <TabGroup className="s self-end">
         <TabList className="border-none" variant="line" defaultValue="1">
-          <Tab value="1">
-            <Link href="/">
-              <LayoutDashboard />
-              Dashboard
-            </Link>
-          </Tab>
-          <Tab value="2">
-            <Link href="/income">
-              <CircleDollarSign />
-              Income
-            </Link>
-          </Tab>
-          <Tab value="3">
-            <ParkingMeter />
-            <Link href="/expenses">Expenses</Link>
-          </Tab>
+          <Link href="/">
+            <Tab value="1">Dashboard</Tab>
+          </Link>
+          <Link href="/income">
+            <Tab value="2">Income</Tab>
+          </Link>
+          <Link href="/expenses">
+            <Tab value="3">Expenses</Tab>
+          </Link>
         </TabList>
       </TabGroup>
     </div>
