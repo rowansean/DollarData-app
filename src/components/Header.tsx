@@ -8,19 +8,15 @@ export default function Header({ className }: { className: string }) {
     <div className={`${className} flex shadow-md`}>
       <TabGroup className="s self-end">
         <TabList className="border-none" variant="line" defaultValue="1">
-          <Tab value="1">
-            <Link href="/">
-              Dashboard
-            </Link>
-          </Tab>
-          <Tab value="2">
-            <Link href="/income">
-              Income
-            </Link>
-          </Tab>
-          <Tab value="3">
-            <Link href="/expenses">Expenses</Link>
-          </Tab>
+          <Link href="/">
+            <Tab value="1">Dashboard</Tab>
+          </Link>
+          <Link href="/income">
+            <Tab value="2">Income</Tab>
+          </Link>
+          <Link href="/expenses">
+            <Tab value="3">Expenses</Tab>
+          </Link>
         </TabList>
       </TabGroup>
     </div>
