@@ -1,13 +1,15 @@
 import { List, ListItem } from "@tremor/react";
-import { MonthlyExpenses, formatCurrency } from "@/lib/types";
+import { CashFlowType, MonthlyCashFlow, cashFlowTypeName, formatCurrency } from "@/lib/types";
 
-export function ExpensesList({ monthlyExpenses }: { monthlyExpenses: MonthlyExpenses }) {
+export function CashFlowList({ monthlyCashFlow, type }: {
+	monthlyCashFlow: MonthlyCashFlow
+	type: CashFlowType
+}) {
 	const frequency = new Map<string, number>();
 
-	monthlyExpenses.forEach((expenses) => {
-		expenses.forEach(expense => {
-			frequency
-				.set(expense.name, frequency.get(expense.name) ?? 0 + expense.amountCents);
+	monthlyCashFlow.forEach(items => {
+		items.forEach(item => {
+			frequency.set(item.name, frequency.get(item.name) ?? 0 + item.amountCents);
 		});
 	});
 
@@ -17,7 +19,10 @@ export function ExpensesList({ monthlyExpenses }: { monthlyExpenses: MonthlyExpe
 		.slice(0, 10);
 
 	return <>
-		<h2 className="font-semibold mb-4 text-tremor-content-strong text-xl">Recurring Expenses</h2>
+		<h2 className="font-semibold mb-4 text-tremor-content-strong text-xl">
+			Recurring {cashFlowTypeName(type)}
+		</h2>
+
 		<List>
 			{mostFrequent.map(([name, amountCents]) =>
 				<ListItem key={name}>

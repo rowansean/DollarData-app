@@ -1,5 +1,3 @@
-"use client";
-
 import { RiEqualizerLine } from '@remixicon/react';
 import {
 	Button,
@@ -12,8 +10,8 @@ import {
 } from "@tremor/react";
 
 import React from "react";
-import { Expense, MonthlyExpenses, formatCurrency } from "@/lib/types";
-import { ExpensesDialog } from './ExpensesDialog';
+import { CashFlowItem, CashFlowType, MonthlyCashFlow, formatCurrency } from "@/lib/types";
+import { CashFlowDialog } from './CashFlowDialog';
 
 function formatMonth(timestamp: number): string {
 	const date = new Date(timestamp);
@@ -32,12 +30,13 @@ function formatMonthAndYear(timestamp: number): string {
 	});
 }
 
-export function ExpensesTable({ monthlyExpenses, onChangeMonth }: {
-	monthlyExpenses: MonthlyExpenses
-	onChangeMonth: (month: number, expenses: Expense[]) => void
+export function CashFlowTable({ monthlyCashFlow, type, onChangeMonth }: {
+	monthlyCashFlow: MonthlyCashFlow
+	type: CashFlowType
+	onChangeMonth: (month: number, newItems: CashFlowItem[]) => void
 }) {
 	const [selectedMonth, setSelectedMonth] = React.useState<number>();
-	const [selectedMonthExpenses, setSelectedMonthExpenses] = React.useState<Expense[]>([]);
+	const [selectedMonthItems, setSelectedMonthItems] = React.useState<CashFlowItem[]>([]);
 
 	return <>
 		<Table>
@@ -51,22 +50,22 @@ export function ExpensesTable({ monthlyExpenses, onChangeMonth }: {
 
 			<TableBody>
 				{Array
-					.from(monthlyExpenses.entries())
+					.from(monthlyCashFlow.entries())
 					.toSorted(([month1, _1], [month2, _]) => month1 - month2)
-					.map(([month, expenses]) =>
+					.map(([month, items]) =>
 						<TableRow key={month}>
 							<TableCell>{formatMonthAndYear(month)}</TableCell>
 							<TableCell>
 								{formatCurrency(
-									expenses
-										.map(expense => expense.amountCents)
+									items
+										.map(item => item.amountCents)
 										.reduce((previous, current) => previous + current, 0)
 								)}
 							</TableCell>
 
 							<TableCell className="flex gap-2">
-								{Array.from(new Set(expenses.map(expense => expense.name))).map(
-									name => <Button key={name} variant="primary">{name}</Button>
+								{Array.from(new Set(items.map(item => item.name))).map(name =>
+									<Button key={name} variant="primary">{name}</Button>
 								)}
 
 								<Button
@@ -74,7 +73,7 @@ export function ExpensesTable({ monthlyExpenses, onChangeMonth }: {
 									icon={RiEqualizerLine}
 									variant="secondary"
 									onClick={() => {
-										setSelectedMonthExpenses(expenses);
+										setSelectedMonthItems(items);
 										setSelectedMonth(month);
 									}}/>
 							</TableCell>
@@ -83,17 +82,18 @@ export function ExpensesTable({ monthlyExpenses, onChangeMonth }: {
 			</TableBody>
 		</Table>
 
-		<ExpensesDialog
+		<CashFlowDialog
 			monthName={selectedMonth == undefined ? "" : formatMonth(selectedMonth)}
-			monthExpenses={selectedMonthExpenses}
+			monthItems={selectedMonthItems}
 			open={selectedMonth != undefined}
-			onClose={newExpenses => {
-				if (newExpenses != undefined) {
+			type={type}
+			onClose={newItems => {
+				if (newItems != undefined) {
 					if (selectedMonth == undefined) {
-						throw new Error("The expenses dialog was closed when it wasn't open.");
+						throw new Error("A cash flow dialog that wasn't open was closed.");
 					}
 
-					onChangeMonth(selectedMonth, newExpenses);
+					onChangeMonth(selectedMonth, newItems);
 				}
 
 				setSelectedMonth(undefined);
