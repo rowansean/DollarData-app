@@ -52,9 +52,9 @@ export default function Home() {
 
         <Card className="flex flex-col gap-2">
           <div className="h-fit text-left">
-            <p className="font-light text-sm">Cash Flow for this month</p>
+            <p className="font-light text-sm">Cash flow for this month</p>
           </div>
-          <CashFlowDeltaBar />
+          <CashFlowDeltaBar monthlyExpenses={monthlyExpenses} monthlyIncome={monthlyIncome}/>
         </Card>
 
         <Card className="flex flex-col gap-2 col-span-full">

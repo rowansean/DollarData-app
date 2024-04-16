@@ -1,10 +1,5 @@
-import { CashFlowItem, MonthlyCashFlow } from "@/lib/types";
+import { CashFlowItem, MonthlyCashFlow, currentMonth } from "@/lib/types";
 import React from "react";
-
-const defaultMonth = new Date();
-
-defaultMonth.setHours(0, 0, 0, 0);
-defaultMonth.setDate(1);
 
 function serializeMonthlyCashFlow(monthlyCashFlow: MonthlyCashFlow): unknown {
 	return Array.from(monthlyCashFlow.entries());
@@ -46,7 +41,7 @@ export function useMonthlyExpenses(): [MonthlyCashFlow, (newMontlyIncome: Monthl
 		() => {
 			const result: MonthlyCashFlow = new Map();
 
-			result.set(defaultMonth.getTime(), [
+			result.set(currentMonth.getTime(), [
 				{
 					name: "Tuition",
 					amountCents: 100000
@@ -66,7 +61,7 @@ export function useMonthlyIncome(): [MonthlyCashFlow, (newMontlyIncome: MonthlyC
 		() => {
 			const result: MonthlyCashFlow = new Map();
 
-			result.set(defaultMonth.getTime(), [
+			result.set(currentMonth.getTime(), [
 				{
 					name: "Salary",
 					amountCents: 400000
