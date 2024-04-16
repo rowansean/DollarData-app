@@ -1,8 +1,8 @@
 import { Card } from "@tremor/react";
 import React from "react";
-import { CashFlowDonutChart } from "@/components/CashFlowDonutChart";
-import { CashFlowList } from "@/components/CashFlowList";
-import { CashFlowTable } from "@/components/CashFlowTable";
+import { CashFlowDonutChart } from "@/components/cashFlow/CashFlowDonutChart";
+import { CashFlowList } from "@/components/cashFlow/CashFlowList";
+import { CashFlowTable } from "@/components/cashFlow/CashFlowTable";
 import { CashFlowItem, CashFlowType, MonthlyCashFlow } from "@/lib/types";
 
 export function CashFlowPage({ monthlyCashFlow, type, onChange }: {

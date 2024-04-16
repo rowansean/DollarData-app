@@ -8,6 +8,6 @@ export const CashFlowDeltaBar = () => (
     </p>
     <DeltaBar value={-45} isIncreasePositive={true} className="mt-3" />
     <DeltaBar value={65} isIncreasePositive={true} className="mt-3" />
-    
+
   </div>
 );

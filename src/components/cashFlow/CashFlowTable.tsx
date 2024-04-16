@@ -10,8 +10,8 @@ import {
 } from "@tremor/react";
 
 import React from "react";
+import { CashFlowDialog } from '@/components/cashFlow/CashFlowDialog';
 import { CashFlowItem, CashFlowType, MonthlyCashFlow, formatCurrency } from "@/lib/types";
-import { CashFlowDialog } from './CashFlowDialog';
 
 function formatMonth(timestamp: number): string {
 	const date = new Date(timestamp);

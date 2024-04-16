@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
+import { CashFlowPage } from "@/components/cashFlow/CashFlowPage";
 import { CashFlowType, MonthlyCashFlow } from "@/lib/types";
-import { CashFlowPage } from "@/components/CashFlowPage";
 
 export default function ExpensesPage() {
 	const [monthlyIncome, setMonthlyIncome] = React.useState<MonthlyCashFlow>(() => {
