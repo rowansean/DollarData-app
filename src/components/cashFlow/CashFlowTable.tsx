@@ -1,4 +1,4 @@
-import { RiEqualizerLine } from '@remixicon/react';
+import { RiAddLine, RiEqualizerLine } from '@remixicon/react';
 import {
 	Button,
 	Table,
@@ -37,6 +37,14 @@ export function CashFlowTable({ monthlyCashFlow, type, onChangeMonth }: {
 }) {
 	const [selectedMonth, setSelectedMonth] = React.useState<number>();
 	const [selectedMonthItems, setSelectedMonthItems] = React.useState<CashFlowItem[]>([]);
+
+	function addMonth() {
+		const nextMonth = new Date(Math.max(...Array.from(monthlyCashFlow.keys())));
+
+		nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+		onChangeMonth(nextMonth.getTime(), []);
+	}
 
 	return <>
 		<Table>
@@ -81,6 +89,12 @@ export function CashFlowTable({ monthlyCashFlow, type, onChangeMonth }: {
 					)}
 			</TableBody>
 		</Table>
+
+		<div className="flex items-center justify-center py-4 w-full">
+				<Button className="px-2" icon={RiAddLine} variant="secondary" onClick={() => {
+					addMonth();
+				}}/>
+			</div>
 
 		<CashFlowDialog
 			monthName={selectedMonth == undefined ? "" : formatMonth(selectedMonth)}
