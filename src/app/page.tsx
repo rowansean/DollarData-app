@@ -1,10 +1,16 @@
+"use client";
+
+import { BadgeDelta, Card } from "@tremor/react";
 import { CashFlowDeltaBar } from "@/components/CashFlowDeltaBar";
 import MonthlySavingsProgress from "@/components/MonthlySavingsProgress";
 import NetWorthMonthChange from "@/components/NetWorthMonthChange";
 import { NetWorthOverTime } from "@/components/NetWorthOverTime";
-import { BadgeDelta, Button, Card } from "@tremor/react";
+import { useMonthlyExpenses, useMonthlyIncome } from "@/hooks/useMonthlyCashFlow";
 
 export default function Home() {
+	const [monthlyExpenses, _1] = useMonthlyExpenses();
+  const [monthlyIncome, _2] = useMonthlyIncome();
+
   return (
     <main className="w-screen min-h-screen flex flex-col gap-5 p-5 md:p-10">
       <div className=" w-full flex flex-col gap-3">
@@ -55,7 +61,7 @@ export default function Home() {
           <div className="h-fit text-left">
             <p className="font-light text-sm">Net Worth Over Time</p>
           </div>
-          <NetWorthOverTime />
+          <NetWorthOverTime monthlyExpenses={monthlyExpenses} monthlyIncome={monthlyIncome}/>
         </Card>
       </div>
     </main>
