@@ -1,68 +1,36 @@
+import { MonthlyCashFlow, formatCurrency } from "@/lib/types";
 import { AreaChart } from "@tremor/react";
 
-const chartdata = [
-    {
-        date: "Jan 22",
-        'Net Worth': 2890,
-    },
-    {
-        date: "Feb 22",
-        'Net Worth': 2756,
-    },
-    {
-        date: "Mar 22",
-        'Net Worth': 3322,
-    },
-    {
-        date: "Apr 22",
-        'Net Worth': 3470,
-    },
-    {
-        date: "May 22",
-        'Net Worth': 3475,
-    },
-    {
-        date: "Jun 22",
-        'Net Worth': 3129,
-    },
-    {
-        date: "Jul 22",
-        'Net Worth': 3490,
-    },
-    {
-        date: "Aug 22",
-        'Net Worth': 2903,
-    },
-    {
-        date: "Sep 22",
-        'Net Worth': 2643,
-    },
-    {
-        date: "Oct 22",
-        'Net Worth': 2837,
-    },
-    {
-        date: "Nov 22",
-        'Net Worth': 2954,
-    },
-    {
-        date: "Dec 22",
-        'Net Worth': 3239,
-    },
-];
+function formatMonthAndYear(timestamp: number): string {
+  return new Date(timestamp).toLocaleString("en-US", {
+    month: "short",
+    year: "2-digit"
+  });
+}
 
-
-export function NetWorthOverTime({netWorths}: {netWorths: number[]}) {
-  return (
-    <>
-      <AreaChart
-        className="mt-4 h-72"
-        data={chartdata}
-        index="date"
-        yAxisWidth={65}
-        categories={["Net Worth"]}
-        colors={["indigo"]}
-      />
-    </>
+export function NetWorthOverTime({ monthlyExpenses, monthlyIncome }: {
+  monthlyExpenses: MonthlyCashFlow
+  monthlyIncome: MonthlyCashFlow
+}) {
+  const months = Array.from(
+    new Set([ ...Array.from(monthlyExpenses.keys()), ...Array.from(monthlyIncome.keys())])
   );
+
+  const data = months.map(month => ({
+    month: formatMonthAndYear(month),
+    Expenses: (monthlyExpenses.get(month) ?? [])
+      .reduce((previous, current) => previous + current.amountCents, 0),
+
+    Income: (monthlyIncome.get(month) ?? [])
+      .reduce((previous, current) => previous + current.amountCents, 0)
+  }));
+
+  return <AreaChart
+    categories={["Expenses", "Income"]}
+    className="mt-4 h-72"
+    colors={["indigo", "cyan"]}
+    data={data}
+    index="month"
+    valueFormatter={amountCents => formatCurrency(amountCents)}
+    yAxisWidth={65}/>;
 }

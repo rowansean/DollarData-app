@@ -10,6 +10,11 @@ export enum CashFlowType {
 
 export type MonthlyCashFlow = Map<number, CashFlowItem[]>;
 
+export const currentMonth = new Date();
+
+currentMonth.setHours(0, 0, 0, 0);
+currentMonth.setDate(1);
+
 export function cashFlowTypeItemName(type: CashFlowType): string {
 	switch (type) {
 		case CashFlowType.Income: return "income item";

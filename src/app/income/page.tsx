@@ -2,21 +2,11 @@
 
 import React from "react";
 import { CashFlowPage } from "@/components/cashFlow/CashFlowPage";
-import { CashFlowType, MonthlyCashFlow } from "@/lib/types";
+import { CashFlowType } from "@/lib/types";
+import { useMonthlyIncome } from "@/hooks/useMonthlyCashFlow";
 
 export default function ExpensesPage() {
-	const [monthlyIncome, setMonthlyIncome] = React.useState<MonthlyCashFlow>(() => {
-		const result = new Map();
-
-		result.set(Date.now(), [
-			{
-				name: "Salary",
-				amountCents: 400000
-			}
-		]);
-
-		return result;
-	});
+	const [monthlyIncome, setMonthlyIncome] = useMonthlyIncome();
 
 	return <CashFlowPage
 		monthlyCashFlow={monthlyIncome}
