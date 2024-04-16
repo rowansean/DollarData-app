@@ -52,7 +52,7 @@ const chartdata = [
 ];
 
 
-export function NetWorthOverTime() {
+export function NetWorthOverTime({netWorths}: {netWorths: number[]}) {
   return (
     <>
       <AreaChart
@@ -61,7 +61,7 @@ export function NetWorthOverTime() {
         index="date"
         yAxisWidth={65}
         categories={["Net Worth"]}
-        colors={["indigo", "cyan"]}
+        colors={["indigo"]}
       />
     </>
   );

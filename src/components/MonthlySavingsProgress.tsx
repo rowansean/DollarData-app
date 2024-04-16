@@ -4,13 +4,15 @@ import { ProgressCircle } from "@tremor/react";
 
 export default function MonthlySavingsProgress({
   className,
+  value,
 }: {
   className: string;
+  value: number;
 }) {
   return (
     <div className={`${className}`}>
-      <ProgressCircle value={75} size="md">
-        <span className="text-xs font-medium text-slate-700">75%</span>
+      <ProgressCircle value={Math.abs(value)} size="md">
+        <span className="text-xs font-medium text-slate-700">{Math.abs(value)}%</span>
       </ProgressCircle>
     </div>
   );
