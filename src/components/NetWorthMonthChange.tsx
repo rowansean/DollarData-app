@@ -1,39 +1,46 @@
-"use client";
+import { MonthlyCashFlow } from "@/lib/types";
 import { AreaChart } from "@tremor/react";
-
-const chartdata = [
-  { date: "Jan 22", NetWorth: 2890 },
-  { date: "Feb 22", NetWorth: 2756 },
-  { date: "Mar 22", NetWorth: 3322 },
-  { date: "Apr 22", NetWorth: 3470 },
-  { date: "May 22", NetWorth: 3475 },
-  { date: "Jun 22", NetWorth: 3129 },
-  { date: "Jul 22", NetWorth: 3490 },
-  { date: "Aug 22", NetWorth: 2903 },
-  { date: "Sep 22", NetWorth: 2643 },
-  { date: "Oct 22", NetWorth: 2837 },
-  { date: "Nov 22", NetWorth: 2954 },
-  { date: "Dec 22", NetWorth: 3239 },
-];
 
 export default function NetWorthMonthChange({
   className,
+  monthlyExpenses,
+  monthlyIncome
 }: {
-  className: string;
+  className: string
+  monthlyExpenses: MonthlyCashFlow
+  monthlyIncome: MonthlyCashFlow
 }) {
-  return (
-    <div className={`${className}`}>
-      <AreaChart
-        className="w-full h-16"
-        data={chartdata}
-        categories={["NetWorth"]}
-        index="date"
-        showLegend={false}
-        showXAxis={false}
-        showYAxis={false}
-        showGridLines={false}
-        showTooltip={false}
-      />
-    </div>
-  );
+  const months = Array.from(
+    new Set([ ...Array.from(monthlyExpenses.keys()), ...Array.from(monthlyIncome.keys())])
+  ).toSorted((month1, month2) => month1 - month2);
+
+  const data: { month: number, "Net Worth": number }[] = [];
+
+  months.forEach(month => {
+    const expenses = (monthlyExpenses.get(month) ?? [])
+      .reduce((previous, current) => previous + current.amountCents, 0);
+
+    const income = (monthlyIncome.get(month) ?? [])
+      .reduce((previous, current) => previous + current.amountCents, 0);
+
+    const cashFlow = income - expenses;
+
+    data.push({
+      month,
+      "Net Worth": (data[data.length - 1]?.["Net Worth"] ?? 0) + cashFlow
+    })
+  });
+
+  return <div className={`${className}`}>
+    <AreaChart
+      categories={["Net Worth"]}
+      className="w-full h-16"
+      data={data}
+      index="month"
+      showGridLines={false}
+      showTooltip={false}
+      showLegend={false}
+      showXAxis={false}
+      showYAxis={false}/>
+  </div>;
 }

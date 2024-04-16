@@ -32,10 +32,15 @@ export default function Home() {
       <div className="dashboard-grid grid grid-cols-1 md:grid-cols-3 gap-5">
         <Card className="flex justify-between items-center">
           <div className="h-fit text-left">
-            <p className="font-light text-sm">This Months Change</p>
+            <p className="font-light text-sm">This Month&apos;s Change</p>
             <p className="font-medium text-lg">April</p>
           </div>
-          <NetWorthMonthChange className=" w-28" />
+
+          <NetWorthMonthChange
+            className="w-28"
+            monthlyExpenses={monthlyExpenses}
+            monthlyIncome={monthlyIncome}/>
+
           <div>
             <p>$196.26</p>
             <p>+9.3%</p>
@@ -52,7 +57,7 @@ export default function Home() {
 
         <Card className="flex flex-col gap-2">
           <div className="h-fit text-left">
-            <p className="font-light text-sm">Cash flow for this month</p>
+            <p className="font-light text-sm">Cash Flow for This Month</p>
           </div>
           <CashFlowDeltaBar monthlyExpenses={monthlyExpenses} monthlyIncome={monthlyIncome}/>
         </Card>
