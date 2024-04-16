@@ -1,26 +1,13 @@
 import { Card, DeltaBar } from "@tremor/react";
 
-export const CashFlowDeltaBar = ({
-  income,
-  expenses,
-}: {
-  income?: number;
-  expenses?: number;
-}) => (
+export const CashFlowDeltaBar = () => (
   <div>
     <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content flex items-center justify-between">
-      <span>${expenses ?? 0}</span>
-      <span>${income ?? 0}</span>
+    <span>-$2,430</span>
+    <span>$4,100</span>
     </p>
-    <DeltaBar
-      value={-expenses*0.02}
-      isIncreasePositive={true}
-      className="mt-3"
-    />
-    <DeltaBar
-      value={income*0.02}
-      isIncreasePositive={true}
-      className="mt-3"
-    />
+    <DeltaBar value={-45} isIncreasePositive={true} className="mt-3" />
+    <DeltaBar value={65} isIncreasePositive={true} className="mt-3" />
+
   </div>
 );
